@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Tab } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   getComplementaryColor,
   getTriadicColors,

@@ -3,7 +3,7 @@ import { useState } from "react";
 import ColorPicker from "../components/ColorPicker";
 import ColorDisplay from "../components/ColorDisplay";
 import ColorSchemes from "../components/ColorSchemes";
-import { ColorWheelIcon } from "lucide-react";
+import { Palette } from "lucide-react";
 
 const Index = () => {
   const [selectedColor, setSelectedColor] = useState("#9b87f5");
@@ -14,7 +14,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <ColorWheelIcon className="h-8 w-8 text-primary mr-2" />
+              <Palette className="h-8 w-8 text-primary mr-2" />
               <h1 className="text-xl font-bold text-gray-900">
                 Color Wheel Wizardry
               </h1>
