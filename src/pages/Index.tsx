@@ -24,7 +24,7 @@ const Index = () => {
         primaryColor={selectedColor} 
       />
       
-      <header className="bg-white shadow-sm relative z-10">
+      <header className="bg-white/80 backdrop-blur-sm shadow-sm relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -38,7 +38,7 @@ const Index = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <div className="bg-white shadow-lg rounded-xl p-6 md:p-8">
+        <div className="bg-white/80 backdrop-blur-sm shadow-lg rounded-xl p-6 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
               <h2 className="text-2xl font-semibold mb-6">Choose Your Color</h2>
@@ -67,7 +67,7 @@ const Index = () => {
         </div>
       </main>
 
-      <footer className="bg-white mt-12 relative z-10">
+      <footer className="bg-white/80 backdrop-blur-sm mt-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-center text-gray-400 text-sm">
             &copy; {new Date().getFullYear()} Color Wheel Wizardry. All rights reserved.
