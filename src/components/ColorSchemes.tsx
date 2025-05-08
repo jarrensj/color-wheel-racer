@@ -6,7 +6,8 @@ import {
   getTriadicColors,
   getMonochromaticColors,
   getShadesOfColor,
-  getTintsOfColor
+  getTintsOfColor,
+  getAnalogousColors
 } from "../utils/colorUtils";
 import ColorSwatch from "./ColorSwatch";
 
@@ -22,6 +23,7 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
   const monochromaticColors = getMonochromaticColors(color, 5);
   const shades = getShadesOfColor(color, 5);
   const tints = getTintsOfColor(color, 5);
+  const analogousColors = getAnalogousColors(color);
 
   return (
     <div className="w-full">
@@ -35,6 +37,16 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
           onClick={() => setActiveTab("complementary")}
         >
           Complementary
+        </button>
+        <button
+          className={`px-4 py-2 text-sm font-medium transition-colors ${
+            activeTab === "analogous"
+              ? "border-b-2 border-primary text-primary"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+          onClick={() => setActiveTab("analogous")}
+        >
+          Analogous
         </button>
         <button
           className={`px-4 py-2 text-sm font-medium transition-colors ${
@@ -83,6 +95,14 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
           <div className="flex justify-center space-x-8">
             <ColorSwatch color={color} label="Original" size="lg" />
             <ColorSwatch color={complementaryColor} label="Complementary" size="lg" />
+          </div>
+        )}
+
+        {activeTab === "analogous" && (
+          <div className="flex justify-center space-x-8">
+            <ColorSwatch color={analogousColors[0]} label="Analogous 1" size="lg" />
+            <ColorSwatch color={color} label="Original" size="lg" />
+            <ColorSwatch color={analogousColors[1]} label="Analogous 2" size="lg" />
           </div>
         )}
 
@@ -144,3 +164,4 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
 };
 
 export default ColorSchemes;
+

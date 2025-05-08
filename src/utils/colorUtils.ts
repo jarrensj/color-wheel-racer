@@ -130,6 +130,26 @@ export const getTriadicColors = (hex: string): string[] => {
   ];
 };
 
+// Get analogous colors (adjacent on the color wheel)
+export const getAnalogousColors = (hex: string): string[] => {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return ['#000000', '#000000'];
+  
+  const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  
+  // Colors 30 degrees to each side of the base color
+  const hue1 = (h + 30) % 360;
+  const hue2 = (h - 30 + 360) % 360; // Adding 360 and using modulo to handle negative values
+  
+  const rgb1 = hslToRgb(hue1, s, l);
+  const rgb2 = hslToRgb(hue2, s, l);
+  
+  return [
+    rgbToHex(rgb1.r, rgb1.g, rgb1.b),
+    rgbToHex(rgb2.r, rgb2.g, rgb2.b)
+  ];
+};
+
 // Get monochromatic colors (variations of one hue)
 export const getMonochromaticColors = (hex: string, count = 5): string[] => {
   const rgb = hexToRgb(hex);
