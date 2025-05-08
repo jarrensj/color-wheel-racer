@@ -20,6 +20,7 @@ import {
 
 interface ColorSchemesProps {
   color: string;
+  onSchemeChange?: (schemeName: string, colors: string[]) => void;
 }
 
 const schemeExplanations = {
@@ -31,7 +32,7 @@ const schemeExplanations = {
   tints: "Tints are created by adding white to the base color, making it lighter while maintaining the same hue."
 };
 
-const ColorSchemes = ({ color }: ColorSchemesProps) => {
+const ColorSchemes = ({ color, onSchemeChange }: ColorSchemesProps) => {
   const [activeTab, setActiveTab] = useState<string>("complementary");
   
   const complementaryColor = getComplementaryColor(color);
@@ -41,6 +42,45 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
   const tints = getTintsOfColor(color, 5);
   const analogousColors = getAnalogousColors(color);
 
+  // Update parent component with current scheme colors whenever the active tab or color changes
+  const handleTabChange = (tabName: string) => {
+    setActiveTab(tabName);
+    
+    if (onSchemeChange) {
+      let schemeColors: string[] = [];
+      
+      switch(tabName) {
+        case "complementary":
+          schemeColors = [color, complementaryColor];
+          break;
+        case "analogous":
+          schemeColors = [analogousColors[0], color, analogousColors[1]];
+          break;
+        case "triadic":
+          schemeColors = [color, ...triadicColors];
+          break;
+        case "monochromatic":
+          schemeColors = monochromaticColors;
+          break;
+        case "shades":
+          schemeColors = shades;
+          break;
+        case "tints":
+          schemeColors = tints;
+          break;
+        default:
+          schemeColors = [color];
+      }
+      
+      onSchemeChange(tabName, schemeColors);
+    }
+  };
+
+  // Trigger the color scheme change on initial render and when color changes
+  React.useEffect(() => {
+    handleTabChange(activeTab);
+  }, [color]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const TabButton = ({ name, label }: { name: string; label: string }) => (
     <div className="flex items-center">
       <button
@@ -49,7 +89,7 @@ const ColorSchemes = ({ color }: ColorSchemesProps) => {
             ? "border-b-2 border-primary text-primary"
             : "text-gray-500 hover:text-gray-700"
         }`}
-        onClick={() => setActiveTab(name)}
+        onClick={() => handleTabChange(name)}
       >
         {label}
       </button>
