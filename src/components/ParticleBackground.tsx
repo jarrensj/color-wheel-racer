@@ -35,7 +35,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
 
     // Initialize canvas size
     setCanvasSize();
-
+    
     // Update canvas size on window resize
     window.addEventListener("resize", setCanvasSize);
 
@@ -53,8 +53,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
           y: Math.random() * canvas.height,
           size: Math.random() * 5 + 2,
           color,
-          speedX: (Math.random() - 0.5) * 2,
-          speedY: (Math.random() - 0.5) * 2,
+          speedX: (Math.random() - 0.5) * 1.5,
+          speedY: (Math.random() - 0.5) * 1.5,
         });
       }
 
@@ -65,10 +65,9 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
 
     // Animation function
     const animate = () => {
-      // Clear canvas with a semi-transparent background for trail effect
-      ctx.fillStyle = `rgba(245, 245, 250, 0.1)`;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+      // Clear canvas with a fully transparent background for cleaner trails
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
       // Update and draw particles
       particlesRef.current.forEach((particle) => {
         // Update position
@@ -86,7 +85,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
+        ctx.fillStyle = particle.color + "80"; // Add transparency
         ctx.fill();
       });
 
@@ -120,8 +119,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
           y: Math.random() * canvas.height,
           size: Math.random() * 5 + 2,
           color,
-          speedX: (Math.random() - 0.5) * 2,
-          speedY: (Math.random() - 0.5) * 2,
+          speedX: (Math.random() - 0.5) * 1.5,
+          speedY: (Math.random() - 0.5) * 1.5,
         });
       }
 
@@ -133,7 +132,11 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
     <canvas
       ref={canvasRef}
       className="fixed top-0 left-0 w-full h-full -z-10"
-      style={{ pointerEvents: "none" }}
+      style={{ 
+        pointerEvents: "none", 
+        position: "fixed", 
+        zIndex: -1 
+      }}
     />
   );
 };

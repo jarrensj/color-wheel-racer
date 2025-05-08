@@ -17,7 +17,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Particle background that responds to color scheme */}
       <ParticleBackground 
         colors={currentSchemeColors} 
