@@ -13,9 +13,14 @@ interface Particle {
 interface ParticleBackgroundProps {
   colors: string[];
   primaryColor: string;
+  speedMultiplier?: number;
 }
 
-const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primaryColor }) => {
+const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ 
+  colors, 
+  primaryColor,
+  speedMultiplier = 1 
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
@@ -48,13 +53,15 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
         // Use either a color from the provided array or the primary color
         const color = colors.length > 0 ? colors[Math.floor(Math.random() * colors.length)] : primaryColor;
         
+        const baseSpeed = 1.5 * speedMultiplier;
+        
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 5 + 2,
           color,
-          speedX: (Math.random() - 0.5) * 1.5,
-          speedY: (Math.random() - 0.5) * 1.5,
+          speedX: (Math.random() - 0.5) * baseSpeed,
+          speedY: (Math.random() - 0.5) * baseSpeed,
         });
       }
 
@@ -101,7 +108,7 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
       window.removeEventListener("resize", setCanvasSize);
       cancelAnimationFrame(animationRef.current);
     };
-  }, [colors, primaryColor]);
+  }, [colors, primaryColor, speedMultiplier]);
 
   // Re-create particles when colors change
   useEffect(() => {
@@ -114,19 +121,21 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ colors, primary
         // Use either a color from the provided array or the primary color
         const color = colors.length > 0 ? colors[Math.floor(Math.random() * colors.length)] : primaryColor;
         
+        const baseSpeed = 1.5 * speedMultiplier;
+        
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 5 + 2,
           color,
-          speedX: (Math.random() - 0.5) * 1.5,
-          speedY: (Math.random() - 0.5) * 1.5,
+          speedX: (Math.random() - 0.5) * baseSpeed,
+          speedY: (Math.random() - 0.5) * baseSpeed,
         });
       }
 
       particlesRef.current = particles;
     }
-  }, [colors, primaryColor]);
+  }, [colors, primaryColor, speedMultiplier]);
 
   return (
     <canvas

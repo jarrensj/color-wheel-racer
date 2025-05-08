@@ -10,10 +10,15 @@ const Index = () => {
   const [selectedColor, setSelectedColor] = useState("#9b87f5");
   const [currentSchemeColors, setCurrentSchemeColors] = useState<string[]>([selectedColor]);
   const [currentSchemeName, setCurrentSchemeName] = useState<string>("complementary");
+  const [particleSpeed, setParticleSpeed] = useState<number>(1);
 
   const handleSchemeChange = (schemeName: string, colors: string[]) => {
     setCurrentSchemeName(schemeName);
     setCurrentSchemeColors(colors);
+  };
+
+  const handleRacerClick = () => {
+    setParticleSpeed(prevSpeed => prevSpeed === 1 ? 2.5 : 1);
   };
 
   return (
@@ -22,6 +27,7 @@ const Index = () => {
       <ParticleBackground 
         colors={currentSchemeColors} 
         primaryColor={selectedColor} 
+        speedMultiplier={particleSpeed}
       />
       
       <header className="bg-white/50 backdrop-blur-sm shadow-sm relative z-10">
@@ -30,7 +36,12 @@ const Index = () => {
             <div className="flex items-center">
               <Palette className="h-8 w-8 text-primary mr-2" />
               <h1 className="text-xl font-bold text-gray-900">
-                Color Wheel Racer
+                Color Wheel <span 
+                  onClick={handleRacerClick} 
+                  className="cursor-pointer hover:text-primary transition-colors"
+                >
+                  Racer
+                </span>
               </h1>
             </div>
           </div>
