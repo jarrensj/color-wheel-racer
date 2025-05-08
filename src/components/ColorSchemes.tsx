@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   getComplementaryColor,
@@ -77,7 +77,7 @@ const ColorSchemes = ({ color, onSchemeChange }: ColorSchemesProps) => {
   };
 
   // Trigger the color scheme change on initial render and when color changes
-  React.useEffect(() => {
+  useEffect(() => {
     handleTabChange(activeTab);
   }, [color]); // eslint-disable-line react-hooks/exhaustive-deps
 
