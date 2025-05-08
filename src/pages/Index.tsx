@@ -59,8 +59,8 @@ const Index = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-6">Selected Color</h2>
               <ColorDisplay color={selectedColor} />
-              {/* Add RaceCar component below ColorDisplay */}
-              <RaceCar colors={currentSchemeColors} />
+              {/* RaceCar component is hidden for now */}
+              {/* <RaceCar colors={currentSchemeColors} /> */}
             </div>
           </div>
           
@@ -93,3 +93,4 @@ const Index = () => {
 };
 
 export default Index;
+
