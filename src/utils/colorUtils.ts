@@ -1,4 +1,3 @@
-
 /**
  * Utility functions for color manipulation
  */
@@ -148,6 +147,56 @@ export const getMonochromaticColors = (hex: string, count = 5): string[] => {
   
   for (let i = 0; i < count; i++) {
     const newL = minLightness + step * i;
+    const newRgb = hslToRgb(h, s, newL);
+    colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+  }
+  
+  return colors;
+};
+
+// Get shades of a color (darker variations by adding black)
+export const getShadesOfColor = (hex: string, count = 5): string[] => {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return Array(count).fill('#000000');
+  
+  const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  
+  // Generate colors with same hue and saturation but decreasing lightness
+  const colors = [];
+  
+  // Start with the original color
+  colors.push(hex);
+  
+  // Calculate step to get increasingly darker shades
+  const step = l / (count);
+  
+  for (let i = 1; i < count; i++) {
+    const newL = Math.max(l - step * i, 0);
+    const newRgb = hslToRgb(h, s, newL);
+    colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+  }
+  
+  return colors;
+};
+
+// Get tints of a color (lighter variations by adding white)
+export const getTintsOfColor = (hex: string, count = 5): string[] => {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return Array(count).fill('#FFFFFF');
+  
+  const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  
+  // Generate colors with same hue and saturation but increasing lightness
+  const colors = [];
+  
+  // Start with the original color
+  colors.push(hex);
+  
+  // Calculate step to get increasingly lighter tints
+  const step = (100 - l) / (count);
+  
+  for (let i = 1; i < count; i++) {
+    const newL = Math.min(l + step * i, 100);
     const newRgb = hslToRgb(h, s, newL);
     colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
   }
