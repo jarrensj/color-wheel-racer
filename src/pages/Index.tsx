@@ -4,6 +4,7 @@ import ColorPicker from "../components/ColorPicker";
 import ColorDisplay from "../components/ColorDisplay";
 import ColorSchemes from "../components/ColorSchemes";
 import ParticleBackground from "../components/ParticleBackground";
+import RaceCar from "../components/RaceCar";
 import { Palette } from "lucide-react";
 
 const Index = () => {
@@ -58,6 +59,8 @@ const Index = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-6">Selected Color</h2>
               <ColorDisplay color={selectedColor} />
+              {/* Add RaceCar component below ColorDisplay */}
+              <RaceCar colors={currentSchemeColors} />
             </div>
           </div>
           
